@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Aug 21 12:27:22 2023
+Created on Mon Aug 28 11:53:03 2023
 
 @author: bmiit202006100110116
 """
@@ -9,25 +9,23 @@ Created on Mon Aug 21 12:27:22 2023
 import cv2
 import numpy as np
 
-def contrast_stretching(image):
-    min_val = np.min(image)
-    max_val = np.max(image)
-    stretched_image = ((image - min_val) / (max_val - min_val)) * 255
-    stretched_image = stretched_image.astype(np.uint8)
-    return stretched_image
+img = cv2.imread("3.jpg",1)
+img1 = cv2.imread("4.jpg",1)
 
-def adjust_brightness(image, value):
-    adjusted_image = cv2.convertScaleAbs(image, alpha=1, beta=value)
-    return adjusted_image
+gamma =0.5
 
-image = cv2.imread('new-image.jpg', cv2.IMREAD_GRAYSCALE)
-
-stretched_image = contrast_stretching(image)
-
-brightness_adjusted = adjust_brightness(image, 25)  # Increase brightness by 50
+new = np.array(255 * (img/255)**gamma).astype("uint8")
+cv2.imshow("image3",img)
+cv2.imshow("image4",new)
+cv2.imwrite("image3.jpg",new)
 
 
-cv2.imshow('Brightness Adjusted Image', brightness_adjusted)
-cv2.imshow('Stretched Image', stretched_image)
+new1 = np.array(255 * (img1/255)**gamma).astype("uint8")
+cv2.imshow("image",img1)
+cv2.imshow("image4.jpg",new1)
+cv2.imwrite("image4.jpg",new1)
+
+
 cv2.waitKey(0)
+
 cv2.destroyAllWindows()
